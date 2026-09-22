@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Samarthika Tours & Travels | Ertiga Cab Booking Chhatrapati Sambhajinagar</title>
+  <meta name="description" content="Samarthika Tours & Travels – Best Ertiga cab service in Chhatrapati Sambhajinagar. Affordable price, experienced drivers, A/C & Non A/C. Book now: 7770077344." />
+  <meta name="keywords" content="Tours and Travels in Chhatrapati Sambhajinagar, Ertiga Cab Booking Chhatrapati Sambhajinagar, Samarthika Travels, Taxi Service Aurangabad, Navnath Channe" />
+  <meta name="author" content="Navnath Channe" />
+  <meta name="robots" content="index, follow" />
+
+  <meta property="og:title" content="Samarthika Tours & Travels | Ertiga Cab Booking" />
+  <meta property="og:description" content="Best Ertiga cab service in Chhatrapati Sambhajinagar. Affordable, experienced drivers, A/C & Non A/C." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_IN" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    *,
+    *::before,
+    *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0B1F3A;
+      --navy-light: #142b4d;
+      --yellow: #F5B301;
+      --red: #C8102E;
+      --white: #ffffff;
+      --gray: #f4f6f9;
+      --text: #1e293b;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 16px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.8rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .brand { display: flex; align-items: center; gap: 0.6rem; }
+    .brand-icon {
+      background: var(--yellow);
+      color: var(--navy);
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 1.3rem; font-weight: 800;
+    }
+    .brand-text h1 { font-size: 1.15rem; font-weight: 800; letter-spacing: 0.5px; line-height: 1.2; }
+    .brand-text span { font-size: 0.72rem; color: var(--yellow); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+
+    .lang-switcher {
+      display: flex; align-items: center; gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.35rem 0.7rem;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .lang-switcher i { color: var(--yellow); font-size: 0.9rem; }
+    .lang-switcher select {
+      background: transparent; color: var(--white); border: none; outline: none;
+      font-family: var(--font); font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; padding: 0.2rem; appearance: none; -webkit-appearance: none;
+    }
+    .lang-switcher select option { color: var(--navy); background: var(--white); }
+
+    /* ===== HERO / MAP SECTION ===== */
+    .map-section {
+      position: relative;
+      width: 100%;
+      height: 75vh;
+      min-height: 450px;
+      background: #e2e8f0;
+    }
+    #map { width: 100%; height: 100%; z-index: 1; }
+
+    /* ===== CONTAINER ===== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ===== SECTION TITLES ===== */
+    .section-title { text-align: center; margin-bottom: 2.5rem; }
+    .section-title h2 { font-size: 2rem; font-weight: 800; color: var(--navy); margin-bottom: 0.4rem; }
+    .section-title p { color: #64748b; font-size: 1rem; max-width: 600px; margin: 0 auto; }
+    .section-title .underline { width: 70px; height: 4px; background: var(--yellow); border-radius: 4px; margin: 0.6rem auto 0; }
+
+    /* ===== BOOKING FORM ===== */
+    .booking-section { padding: 4rem 0; background: var(--gray); }
+    .booking-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      border-top: 5px solid var(--yellow);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-group.full-width { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: 0.82rem; font-weight: 700; color: var(--navy);
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .form-group label i { color: var(--yellow); margin-right: 4px; width: 16px; }
+    .form-group input,
+    .form-group select {
+      padding: 0.8rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-family: var(--font);
+      font-size: 0.95rem;
+      color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: var(--white);
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--yellow);
+      box-shadow: 0 0 0 3px rgba(245, 179, 1, 0.2);
+      outline: none;
+    }
+
+    /* ===== ESTIMATE BOX (Only Distance & Time) ===== */
+    .estimate-box {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-left: 5px solid var(--yellow);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+    }
+    .estimate-box.hidden { display: none; }
+    .estimate-box .est-item { display: flex; align-items: center; gap: 0.5rem; color: var(--navy); font-weight: 600; }
+    .estimate-box .est-item i { color: var(--red); font-size: 1.1rem; }
+    .estimate-box .est-item strong { color: var(--red); font-size: 1.05rem; }
+
+    .btn-whatsapp {
+      grid-column: 1 / -1;
+      background: #25D366;
+      color: var(--white);
+      border: none;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      font-family: var(--font);
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      transition: background 0.25s, transform 0.15s, box-shadow 0.25s;
+      margin-top: 0.5rem;
+      letter-spacing: 0.3px;
+    }
+    .btn-whatsapp:hover {
+      background: #1ebe5a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+    }
+    .btn-whatsapp i { font-size: 1.3rem; }
+
+    /* ===== FEATURES ===== */
+    .features-section { padding: 4.5rem 0; background: var(--white); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.8rem;
+    }
+    .feature-card {
+      background: var(--gray);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-bottom: 4px solid transparent;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+      border-bottom-color: var(--yellow);
+    }
+    .feature-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--navy); color: var(--yellow);
+      display: grid; place-items: center;
+      font-size: 1.6rem; margin: 0 auto 1rem;
+    }
+    .feature-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
+    .feature-card p { font-size: 0.9rem; color: #64748b; }
+
+    /* ===== VEHICLE ===== */
+    .vehicle-section { padding: 4.5rem 0; background: var(--navy); color: var(--white); }
+    .vehicle-section .section-title h2 { color: var(--white); }
+    .vehicle-section .section-title p { color: #94a3b8; }
+    .vehicle-showcase {
+      display: flex; align-items: center; gap: 3rem;
+      max-width: 950px; margin: 0 auto;
+      flex-wrap: wrap; justify-content: center;
+    }
+    .vehicle-img {
+      flex: 1 1 320px;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: grid; place-items: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    .vehicle-img .car-icon { font-size: 5rem; color: var(--navy); }
+    .vehicle-info { flex: 1 1 300px; }
+    .vehicle-info h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .vehicle-info .badge {
+      display: inline-block;
+      background: var(--yellow); color: var(--navy);
+      padding: 0.3rem 0.9rem; border-radius: 30px;
+      font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem;
+    }
+    .vehicle-info ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .vehicle-info ul li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.95rem; }
+    .vehicle-info ul li i { color: var(--yellow); font-size: 1.1rem; }
+
+    /* ===== FOOTER ===== */
+    footer { background: #071426; color: #94a3b8; padding: 3rem 0 1.5rem; font-size: 0.9rem; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .footer-col h4 {
+      color: var(--white); font-size: 1.05rem; font-weight: 700;
+      margin-bottom: 1rem; position: relative; padding-bottom: 0.5rem;
+    }
+    .footer-col h4::after {
+      content: ''; position: absolute; left: 0; bottom: 0;
+      width: 40px; height: 3px; background: var(--yellow); border-radius: 3px;
+    }
+    .footer-col p, .footer-col li { margin-bottom: 0.5rem; line-height: 1.7; }
+    .footer-col ul { list-style: none; }
+    .footer-col a:hover { color: var(--yellow); }
+    .footer-col .contact-item { display: flex; align-items: flex-start; gap: 0.6rem; margin-bottom: 0.7rem; }
+    .footer-col .contact-item i { color: var(--yellow); margin-top: 4px; font-size: 0.95rem; }
+    .footer-bottom {
+      border-top: 1px solid #1e293b;
+      padding-top: 1.5rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+    .footer-bottom span { color: var(--yellow); font-weight: 600; }
+
+    /* ===== CAR MARKER ROTATION STYLE ===== */
+    .car-marker-wrap {
+      background: #ffffff;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      border: 3px solid var(--yellow);
+    }
+    .car-icon-inner {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s linear;
+    }
+    .car-icon-inner svg {
+      width: 100%;
+      height: 100%;
+      fill: var(--navy);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .header-inner { flex-direction: column; align-items: stretch; gap: 0.5rem; }
+      .brand { justify-content: center; }
+      .lang-switcher { justify-content: center; align-self: center; }
+      .map-section { height: 60vh; min-height: 380px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .booking-card { padding: 1.6rem; }
+      .section-title h2 { font-size: 1.5rem; }
+      .vehicle-info h3 { font-size: 1.4rem; }
+      .estimate-box { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+    }
+    @media (max-width: 480px) {
+      .brand-text h1 { font-size: 1rem; }
+      .brand-text span { font-size: 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-icon">स</div>
+        <div class="brand-text">
+          <h1 data-i18n="brandName">Samarthika Tours & Travels</h1>
+          <span data-i18n="ownerName">Navnath Channe</span>
+        </div>
+      </div>
+
+      <div class="lang-switcher">
+        <i class="fas fa-globe"></i>
+        <select id="languageSelect" aria-label="Select Language">
+          <option value="en">English</option>
+          <option value="mr">मराठी</option>
+          <option value="hi">हिंदी</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== LIVE MAP SECTION (FULL INDIA) ===== -->
+  <section class="map-section" aria-label="Live Route Map">
+    <div id="map"></div>
+  </section>
+
+  <!-- ===== BOOKING FORM ===== -->
+  <section class="booking-section" id="booking">
+    <div class="container">
+      <div class="section-title">
+        <h2 data-i18n="bookingTitle">Book Your Ride</h2>
+        <p data-i18n="bookingSubtitle">Fill the form and get instant confirmation on WhatsApp</p>
+        <div class="underline"></div>
+      </div>
+
+      <div class="booking-card">
+        <form id="bookingForm" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="fullName"><i class="fas fa-user"></i> <span data-i18n="labelName">Full Name</span></label>
+              <input type="text" id="fullName" name="fullName" placeholder="e.g. Rahul Sharma" required />
+            </div>
+
+            <div class="form-group">
+              <label for="phone"><i class="fas fa-phone"></i> <span data-i18n="labelPhone">Phone Number</span></label>
+              <input type="tel" id="phone" name="phone" placeholder="e.g. 9876543210" required />
+            </div>
+
+            <div class="form-group">
+              <label for="pickup"><i class="fas fa-map-marker-alt"></i> <span data-i18n="labelPickup">Pickup Location (From)</span></label>
+              <input type="text" id="pickup" name="pickup" placeholder="e.g. Chhatrapati Sambhajinagar" required />
+            </div>
+
+            <div class="form-group">
+              <label for="drop"><i class="fas fa-location-arrow"></i> <span data-i18n="labelDrop">Drop Location (To)</span></label>
+              <input type="text" id="drop" name="drop" placeholder="e.g. Alwar" required />
+            </div>
+
+            <div class="form-group">
+              <label for="travelDate"><i class="fas fa-calendar-alt"></i> <span data-i18n="labelDate">Travel Date & Time</span></label>
+              <input type="datetime-local" id="travelDate" name="travelDate" required />
+            </div>
+
+            <div class="form-group">
+              <label for="vehicleType"><i class="fas fa-car"></i> <span data-i18n="labelVehicle">Vehicle Type</span></label>
+              <select id="vehicleType" name="vehicleType" required>
+                <option value="Ertiga AC" data-i18n="vehicleAC">Ertiga AC</option>
+                <option value="Ertiga Non-AC" data-i18n="vehicleNonAC">Ertiga Non-AC</option>
+                <option value="Other" data-i18n="vehicleOther">Other (Specify in WhatsApp)</option>
+              </select>
+            </div>
+
+            <!-- AUTO ESTIMATE BOX (Only Distance & Time) -->
+            <div class="estimate-box hidden" id="estimateBox">
+              <div class="est-item">
+                <i class="fas fa-route"></i>
+                <span><span data-i18n="estDistance">Distance:</span> <strong id="estDistance">-- km</strong></span>
+              </div>
+              <div class="est-item">
+                <i class="fas fa-clock"></i>
+                <span><span data-i18n="estTime">Time:</span> <strong id="estTime">--</strong></span>
+              </div>
+            </div>
+
+            <button type="button" class="btn-whatsapp" id="whatsappBtn">
+              <i class="fab fa-whatsapp"></i>
+              <span data-i18n="btnWhatsApp">Book via WhatsApp</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="features-section" id="services">
+    <div class="container">
+      <div class="section-title">
+        <h2 data-i18n="servicesTitle">Why Choose Us?</h2>
+        <p data-i18n="servicesSubtitle">We provide the best travel experience with comfort and reliability</p>
+        <div class="underline"></div>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-star"></i></div>
+          <h3 data-i18n="feature1Title">Best Service</h3>
+          <p data-i18n="feature1Desc">Top-rated service with on-time pickup and drop.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-rupee-sign"></i></div>
+          <h3 data-i18n="feature2Title">Affordable Price</h3>
+          <p data-i18n="feature2Desc">Competitive rates with no hidden charges.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-user-tie"></i></div>
+          <h3 data-i18n="feature3Title">Experienced Drivers</h3>
+          <p data-i18n="feature3Desc">Professional and courteous drivers for a safe journey.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fas fa-snowflake"></i></div>
+          <h3 data-i18n="feature4Title">A/C & Non A/C</h3>
+          <p data-i18n="feature4Desc">Choose your comfort with AC and Non-AC options.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VEHICLE SHOWCASE ===== -->
+  <section class="vehicle-section" id="vehicle">
+    <div class="container">
+      <div class="section-title">
+        <h2 data-i18n="vehicleTitle">Our Primary Vehicle</h2>
+        <p data-i18n="vehicleSubtitle">Well-maintained and comfortable for all your trips</p>
+        <div class="underline"></div>
+      </div>
+
+      <div class="vehicle-showcase">
+        <div class="vehicle-img">
+          <div class="car-icon"><i class="fas fa-car-side"></i></div>
+        </div>
+        <div class="vehicle-info">
+          <span class="badge" data-i18n="vehicleBadge">White Color</span>
+          <h3 data-i18n="vehicleName">Maruti Suzuki Ertiga</h3>
+          <ul>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="vehicleFeature1">Spacious 6+1 Seater</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="vehicleFeature2">Air Conditioned & Non-AC</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="vehicleFeature3">Well-maintained & Clean</span></li>
+            <li><i class="fas fa-check-circle"></i> <span data-i18n="vehicleFeature4">Perfect for Family Trips</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 data-i18n="footerAbout">Samarthika Tours & Travels</h4>
+          <p data-i18n="footerAboutDesc">Your trusted travel partner in Chhatrapati Sambhajinagar. We offer reliable, comfortable, and affordable cab services for all your journeys.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="footerContact">Contact Us</h4>
+          <div class="contact-item">
+            <i class="fas fa-user"></i>
+            <span data-i18n="footerOwner">Navnath Channe (नवनाथ चन्ने)</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <span><a href="tel:+917770077344">7770077344</a>, <a href="tel:+919665636303">9665636303</a></span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span data-i18n="footerAddress">AS Club, MHADA Colony, M-3, Tisgaon, Chhatrapati Sambhajinagar</span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="footerServices">Our Services</h4>
+          <ul>
+            <li data-i18n="footerService1">Best Service</li>
+            <li data-i18n="footerService2">Affordable Price</li>
+            <li data-i18n="footerService3">Experienced Drivers</li>
+            <li data-i18n="footerService4">A/C & Non A/C Available</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 <span>Samarthika Tours & Travels</span>. <span data-i18n="footerRights">All Rights Reserved.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JSON-LD SCHEMA ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://samarthikatours.in/#localbusiness",
+        "name": "Samarthika Tours & Travels",
+        "description": "Best Ertiga cab booking service in Chhatrapati Sambhajinagar. Affordable price, experienced drivers, A/C & Non A/C available.",
+        "owner": { "@type": "Person", "name": "Navnath Channe" },
+        "telephone": ["+917770077344", "+919665636303"],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "AS Club, MHADA Colony, M-3, Tisgaon",
+          "addressLocality": "Chhatrapati Sambhajinagar",
+          "addressRegion": "Maharashtra",
+          "postalCode": "431001",
+          "addressCountry": "IN"
+        },
+        "geo": { "@type": "GeoCoordinates", "latitude": 19.8762, "longitude": 75.3433 },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+          "opens": "00:00", "closes": "23:59"
+        },
+        "priceRange": "₹₹"
+      },
+      {
+        "@type": "TaxiService",
+        "@id": "https://samarthikatours.in/#taxiservice",
+        "name": "Samarthika Tours & Travels - Ertiga Cab Service",
+        "provider": { "@id": "https://samarthikatours.in/#localbusiness" },
+        "areaServed": { "@type": "Country", "name": "India" },
+        "serviceType": "Taxi Service, Cab Booking, Tour Packages",
+        "availableVehicle": {
+          "@type": "Car",
+          "name": "Maruti Suzuki Ertiga",
+          "color": "White",
+          "vehicleConfiguration": "AC and Non-AC"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    /* =========================================================
+       1. TRANSLATIONS (English, Marathi, Hindi)
+       ========================================================= */
+    const translations = {
+      en: {
+        brandName: "Samarthika Tours & Travels", ownerName: "Navnath Channe",
+        bookingTitle: "Book Your Ride",
+        bookingSubtitle: "Fill the form and get instant confirmation on WhatsApp",
+        labelName: "Full Name", labelPhone: "Phone Number",
+        labelPickup: "Pickup Location (From)", labelDrop: "Drop Location (To)",
+        labelDate: "Travel Date & Time", labelVehicle: "Vehicle Type",
+        vehicleAC: "Ertiga AC", vehicleNonAC: "Ertiga Non-AC",
+        vehicleOther: "Other (Specify in WhatsApp)",
+        btnWhatsApp: "Book via WhatsApp",
+        estDistance: "Distance", estTime: "Time",
+        servicesTitle: "Why Choose Us?",
+        servicesSubtitle: "We provide the best travel experience with comfort and reliability",
+        feature1Title: "Best Service", feature1Desc: "Top-rated service with on-time pickup and drop.",
+        feature2Title: "Affordable Price", feature2Desc: "Competitive rates with no hidden charges.",
+        feature3Title: "Experienced Drivers", feature3Desc: "Professional and courteous drivers for a safe journey.",
+        feature4Title: "A/C & Non A/C", feature4Desc: "Choose your comfort with AC and Non-AC options.",
+        vehicleTitle: "Our Primary Vehicle",
+        vehicleSubtitle: "Well-maintained and comfortable for all your trips",
+        vehicleBadge: "White Color", vehicleName: "Maruti Suzuki Ertiga",
+        vehicleFeature1: "Spacious 6+1 Seater", vehicleFeature2: "Air Conditioned & Non-AC",
+        vehicleFeature3: "Well-maintained & Clean", vehicleFeature4: "Perfect for Family Trips",
+        footerAbout: "Samarthika Tours & Travels",
+        footerAboutDesc: "Your trusted travel partner in Chhatrapati Sambhajinagar. We offer reliable, comfortable, and affordable cab services for all your journeys.",
+        footerContact: "Contact Us", footerOwner: "Navnath Channe (नवनाथ चन्ने)",
+        footerAddress: "AS Club, MHADA Colony, M-3, Tisgaon, Chhatrapati Sambhajinagar",
+        footerServices: "Our Services",
+        footerService1: "Best Service", footerService2: "Affordable Price",
+        footerService3: "Experienced Drivers", footerService4: "A/C & Non A/C Available",
+        footerRights: "All Rights Reserved."
+      },
+      mr: {
+        brandName: "समर्थिका टूर्स अँड ट्रॅव्हल्स", ownerName: "नवनाथ चन्ने",
+        bookingTitle: "तुमची राईड बुक करा",
+        bookingSubtitle: "फॉर्म भरा आणि व्हाट्सएपवर त्वरित पुष्टी मिळवा",
+        labelName: "पूर्ण नाव", labelPhone: "फोन नंबर",
+        labelPickup: "पिकअप ठिकाण (पासून)", labelDrop: "ड्रॉप ठिकाण (पर्यंत)",
+        labelDate: "प्रवासाची तारीख आणि वेळ", labelVehicle: "वाहन प्रकार",
+        vehicleAC: "एर्टिगा एसी", vehicleNonAC: "एर्टिगा नॉन-एसी",
+        vehicleOther: "इतर (व्हाट्सएपमध्ये नमूद करा)",
+        btnWhatsApp: "व्हाट्सएपद्वारे बुक करा",
+        estDistance: "अंतर", estTime: "वेळ",
+        servicesTitle: "आम्हालाच का निवडावे?",
+        servicesSubtitle: "आम्ही आराम आणि विश्वासार्हतेसह सर्वोत्तम प्रवास अनुभव देतो",
+        feature1Title: "सर्वोत्तम सेवा", feature1Desc: "वेळेवर पिकअप आणि ड्रॉपसह टॉप-रेटेड सेवा.",
+        feature2Title: "परवडणारी किंमत", feature2Desc: "कोणतेही छुपे शुल्क नसलेले स्पर्धात्मक दर.",
+        feature3Title: "अनुभवी ड्रायव्हर्स", feature3Desc: "सुरक्षित प्रवासासाठी व्यावसायिक आणि नम्र ड्रायव्हर्स.",
+        feature4Title: "एसी आणि नॉन एसी", feature4Desc: "एसी आणि नॉन-एसी पर्यायांसह तुमचा आराम निवडा.",
+        vehicleTitle: "आमचे प्राथमिक वाहन",
+        vehicleSubtitle: "तुमच्या सर्व प्रवासांसाठी सुस्थितीत आणि आरामदायक",
+        vehicleBadge: "पांढरा रंग", vehicleName: "मारुती सुझुकी एर्टिगा",
+        vehicleFeature1: "प्रशस्त ६+१ सीटर", vehicleFeature2: "एअर कंडिशन्ड आणि नॉन-एसी",
+        vehicleFeature3: "सुस्थितीत आणि स्वच्छ", vehicleFeature4: "कौटुंबिक सहलीसाठी योग्य",
+        footerAbout: "समर्थिका टूर्स अँड ट्रॅव्हल्स",
+        footerAboutDesc: "छत्रपती संभाजीनगरमधील तुमचा विश्वासू प्रवास भागीदार. आम्ही सर्व प्रवासांसाठी विश्वासार्ह, आरामदायक आणि परवडणारी कॅब सेवा देतो.",
+        footerContact: "आमच्याशी संपर्क साधा", footerOwner: "नवनाथ चन्ने",
+        footerAddress: "ए.एस. क्लब, म्हाडा कॉलनी, एम-३, तिसगाव, छत्रपती संभाजीनगर",
+        footerServices: "आमच्या सेवा",
+        footerService1: "सर्वोत्तम सेवा", footerService2: "परवडणारी किंमत",
+        footerService3: "अनुभवी ड्रायव्हर्स", footerService4: "एसी आणि नॉन एसी उपलब्ध",
+        footerRights: "सर्व हक्क राखीव."
+      },
+      hi: {
+        brandName: "समर्थिका टूर्स एंड ट्रेवल्स", ownerName: "नवनाथ चन्ने",
+        bookingTitle: "अपनी राइड बुक करें",
+        bookingSubtitle: "फॉर्म भरें और व्हाट्सएप पर तुरंत पुष्टि पाएं",
+        labelName: "पूरा नाम", labelPhone: "फ़ोन नंबर",
+        labelPickup: "पिकअप स्थान (से)", labelDrop: "ड्रॉप स्थान (तक)",
+        labelDate: "यात्रा की तारीख और समय", labelVehicle: "वाहन का प्रकार",
+        vehicleAC: "एर्टिगा एसी", vehicleNonAC: "एर्टिगा नॉन-एसी",
+        vehicleOther: "अन्य (व्हाट्सएप में बताएं)",
+        btnWhatsApp: "व्हाट्सएप के माध्यम से बुक करें",
+        estDistance: "दूरी", estTime: "समय",
+        servicesTitle: "हमें क्यों चुनें?",
+        servicesSubtitle: "हम आराम और विश्वसनीयता के साथ सर्वोत्तम यात्रा अनुभव प्रदान करते हैं",
+        feature1Title: "सर्वोत्तम सेवा", feature1Desc: "समय पर पिकअप और ड्रॉप के साथ टॉप-रेटेड सेवा।",
+        feature2Title: "किफायती मूल्य", feature2Desc: "कोई छिपा शुल्क नहीं, प्रतिस्पर्धी दरें।",
+        feature3Title: "अनुभवी ड्राइवर", feature3Desc: "सुरक्षित यात्रा के लिए पेशेवर और विनम्र ड्राइवर।",
+        feature4Title: "एसी और नॉन एसी", feature4Desc: "एसी और नॉन-एसी विकल्पों के साथ अपना आराम चुनें।",
+        vehicleTitle: "हमारा प्राथमिक वाहन",
+        vehicleSubtitle: "आपकी सभी यात्राओं के लिए अच्छी तरह से बनाए रखा और आरामदायक",
+        vehicleBadge: "सफेद रंग", vehicleName: "मारुति सुजुकी एर्टिगा",
+        vehicleFeature1: "विशाल 6+1 सीटर", vehicleFeature2: "एयर कंडीशनर और नॉन-एसी",
+        vehicleFeature3: "अच्छी तरह से बनाए रखा और साफ", vehicleFeature4: "पारिवारिक यात्राओं के लिए बिल्कुल सही",
+        footerAbout: "समर्थिका टूर्स एंड ट्रेवल्स",
+        footerAboutDesc: "छत्रपति संभाजीनगर में आपका विश्वसनीय यात्रा साथी। हम आपकी सभी यात्राओं के लिए विश्वसनीय, आरामदायक और किफायती कैब सेवाएं प्रदान करते हैं।",
+        footerContact: "संपर्क करें", footerOwner: "नवनाथ चन्ने",
+        footerAddress: "ए.एस. क्लब, म्हाडा कॉलोनी, एम-3, तिसगांव, छत्रपति संभाजीनगर",
+        footerServices: "हमारी सेवाएं",
+        footerService1: "सर्वोत्तम सेवा", footerService2: "किफायती मूल्य",
+        footerService3: "अनुभवी ड्राइवर", footerService4: "एसी और नॉन एसी उपलब्ध",
+        footerRights: "सर्वाधिकार सुरक्षित।"
+      }
+    };
+
+    /* =========================================================
+       2. LANGUAGE SWITCHER
+       ========================================================= */
+    const langSelect = document.getElementById('languageSelect');
+    let currentLang = 'en';
+
+    function setLanguage(lang) {
+      const dict = translations[lang] || translations.en;
+      currentLang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) el.textContent = dict[key];
+      });
+      document.documentElement.lang = lang;
+      try { localStorage.setItem('preferredLang', lang); } catch (e) {}
+    }
+
+    langSelect.addEventListener('change', (e) => setLanguage(e.target.value));
+
+    /* =========================================================
+       3. FULL-INDIA LIVE MAP + MOVING ERTIGA (ROTATING ICON)
+       ========================================================= */
+    const map = L.map('map', {
+      zoomControl: true,
+      attributionControl: true,
+      scrollWheelZoom: false
+    }).setView([22.5, 78.5], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    const routePoints = [
+      [19.8762, 75.3433], [20.0110, 75.1800], [20.1500, 75.0000],
+      [20.3500, 74.8000], [20.5500, 74.5500], [20.8000, 74.3000],
+      [21.2000, 74.0000], [21.5000, 73.7500], [21.8500, 73.5000],
+      [22.2000, 73.2000], [22.5000, 72.9000], [22.9000, 72.6000],
+      [23.5000, 72.5000], [24.2000, 72.3000], [25.0000, 72.5000],
+      [25.8000, 72.8000], [26.5000, 73.2000], [26.9000, 73.5000],
+      [27.5600, 76.6100]
+    ];
+
+    const routeLine = L.polyline(routePoints, {
+      color: '#F5B301', weight: 5, opacity: 0.85,
+      lineJoin: 'round', dashArray: '12, 8'
+    }).addTo(map);
+
+    map.fitBounds(routeLine.getBounds(), { padding: [30, 30] });
+
+    routePoints.forEach((pt, i) => {
+      if (i === 0 || i === routePoints.length - 1) {
+        L.circleMarker(pt, {
+          radius: 7, color: '#0B1F3A', fillColor: '#F5B301',
+          fillOpacity: 1, weight: 2
+        }).addTo(map).bindPopup(
+          i === 0 ? '<b>Chhatrapati Sambhajinagar</b><br>Starting Point'
+                  : '<b>Alwar, Rajasthan</b><br>Destination'
+        );
+      }
+    });
+
+    // Top-Down Car SVG icon
+    const carSvg = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="#0B1F3A">
+        <path d="M19 11l-1.5-4.5C17.2 5.6 16.3 5 15.3 5H8.7c-1 0-1.9.6-2.2 1.5L5 11v6c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-1h8v1c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-6zM8.7 6.5h6.6l.9 2.8H7.8l.9-2.8zM7.5 14c-.8 0-1.5-.7-1.5-1.5S6.7 11 7.5 11s1.5.7 1.5 1.5S8.3 14 7.5 14zm9 0c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5z"/>
+      </svg>`;
+
+    const carIcon = L.divIcon({
+      className: 'custom-car-marker',
+      html: `<div class="car-marker-wrap"><div class="car-icon-inner">${carSvg}</div></div>`,
+      iconSize: [44, 44], iconAnchor: [22, 22]
+    });
+
+    let carMarker = L.marker(routePoints[0], { icon: carIcon }).addTo(map);
+
+    let routeIndex = 0;
+    let progress = 0;
+    let direction = 1;
+    const speed = 0.004;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function getBearing(lat1, lon1, lat2, lon2) {
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const lat1Rad = lat1 * Math.PI / 180;
+      const lat2Rad = lat2 * Math.PI / 180;
+      const y = Math.sin(dLon) * Math.cos(lat2Rad);
+      const x = Math.cos(lat1Rad) * Math.sin(lat2Rad) - Math.sin(lat1Rad) * Math.cos(lat2Rad) * Math.cos(dLon);
+      let brng = Math.atan2(y, x) * 180 / Math.PI;
+      return (brng + 360) % 360;
+    }
+
+    function getCurrentPosition() {
+      if (direction === 1) {
+        const s = routePoints[routeIndex];
+        const e = routePoints[routeIndex + 1];
+        return [lerp(s[0], e[0], progress), lerp(s[1], e[1], progress)];
+      } else {
+        const s = routePoints[routeIndex + 1];
+        const e = routePoints[routeIndex];
+        return [lerp(s[0], e[0], progress), lerp(s[1], e[1], progress)];
+      }
+    }
+
+    function animateCar() {
+      if (direction === 1) {
+        progress += speed;
+        if (progress >= 1) {
+          progress = 0;
+          routeIndex++;
+          if (routeIndex >= routePoints.length - 1) {
+            routeIndex = routePoints.length - 2;
+            direction = -1;
+            progress = 0;
+          }
+        }
+      } else {
+        progress += speed;
+        if (progress >= 1) {
+          progress = 0;
+          routeIndex--;
+          if (routeIndex < 0) {
+            routeIndex = 0;
+            direction = 1;
+            progress = 0;
+          }
+        }
+      }
+
+      const currentPos = getCurrentPosition();
+      carMarker.setLatLng(currentPos);
+
+      let nextPos;
+      if (direction === 1) {
+        nextPos = routePoints[routeIndex + 1];
+      } else {
+        nextPos = routePoints[routeIndex];
+      }
+
+      const bearing = getBearing(currentPos[0], currentPos[1], nextPos[0], nextPos[1]);
+      const carElement = carMarker.getElement();
+      if (carElement) {
+        const iconInner = carElement.querySelector('.car-icon-inner');
+        if (iconInner) {
+          iconInner.style.transform = `rotate(${bearing}deg)`;
+        }
+      }
+
+      requestAnimationFrame(animateCar);
+    }
+
+    animateCar();
+
+    setTimeout(() => {
+      map.invalidateSize();
+      window.dispatchEvent(new Event('resize'));
+    }, 1000);
+
+    window.addEventListener('resize', () => map.invalidateSize());
+
+    /* =========================================================
+       4. AUTO-FILL DISTANCE & TIME (No Fare)
+       ========================================================= */
+    const pickupInput = document.getElementById('pickup');
+    const dropInput = document.getElementById('drop');
+    const estimateBox = document.getElementById('estimateBox');
+    const estDistanceEl = document.getElementById('estDistance');
+    const estTimeEl = document.getElementById('estTime');
+
+    const AVERAGE_SPEED = 50;
+
+    function haversine(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) ** 2 +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) ** 2;
+      return 2 * R * Math.asin(Math.sqrt(a));
+    }
+
+    const geoCache = {};
+
+    async function geocode(place) {
+      const key = place.trim().toLowerCase();
+      if (geoCache[key]) return geoCache[key];
+      const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=in&q=${encodeURIComponent(place)}`;
+      try {
+        const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+        const data = await res.json();
+        if (data && data.length > 0) {
+          const loc = { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
+          geoCache[key] = loc;
+          return loc;
+        }
+      } catch (err) { console.warn('Geocode failed', err); }
+      return null;
+    }
+
+    let estimateTimer = null;
+    function scheduleEstimate() {
+      clearTimeout(estimateTimer);
+      estimateTimer = setTimeout(calculateEstimate, 900);
+    }
+
+    async function calculateEstimate() {
+      const from = pickupInput.value.trim();
+      const to = dropInput.value.trim();
+
+      if (!from || !to || from.length < 3 || to.length < 3) {
+        estimateBox.classList.add('hidden');
+        return;
+      }
+
+      const loc1 = await geocode(from);
+      const loc2 = await geocode(to);
+
+      if (!loc1 || !loc2) {
+        estimateBox.classList.add('hidden');
+        return;
+      }
+
+      const straightKm = haversine(loc1.lat, loc1.lon, loc2.lat, loc2.lon);
+      const roadKm = Math.round(straightKm * 1.25);
+      const hours = roadKm / AVERAGE_SPEED;
+      const h = Math.floor(hours);
+      const m = Math.round((hours - h) * 60);
+      const timeStr = `${h}h ${m}m`;
+
+      estDistanceEl.textContent = `${roadKm} km`;
+      estTimeEl.textContent = timeStr;
+      estimateBox.classList.remove('hidden');
+
+      estimateBox.dataset.distance = roadKm;
+      estimateBox.dataset.time = timeStr;
+    }
+
+    pickupInput.addEventListener('input', scheduleEstimate);
+    dropInput.addEventListener('input', scheduleEstimate);
+
+    /* =========================================================
+       5. WHATSAPP BOOKING FORM (FIXED)
+       ========================================================= */
+    const whatsappBtn = document.getElementById('whatsappBtn');
+
+    whatsappBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const fullName = document.getElementById('fullName').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const pickup = document.getElementById('pickup').value.trim();
+      const drop = document.getElementById('drop').value.trim();
+      const travelDate = document.getElementById('travelDate').value;
+      const vehicleType = document.getElementById('vehicleType').value;
+
+      if (!fullName || !phone || !pickup || !drop || !travelDate || !vehicleType) {
+        alert('कृपया सर्व माहिती भरा / Please fill all fields before booking.');
+        return;
+      }
+
+      let formattedDate = travelDate;
+      try {
+        const d = new Date(travelDate);
+        if (!isNaN(d.getTime())) {
+          formattedDate = d.toLocaleString('en-IN', {
+            day: '2-digit', month: 'short', year: 'numeric',
+            hour: '2-digit', minute: '2-digit', hour12: true
+          });
+        }
+      } catch (err) {}
+
+      const hasEstimate = !estimateBox.classList.contains('hidden');
+      const estDistance = hasEstimate ? estimateBox.dataset.distance : '';
+      const estTime = hasEstimate ? estimateBox.dataset.time : '';
+
+      let message = `*New Booking Request - Samarthika Tours & Travels*\n\n`;
+      message += `*Name:* ${fullName}\n`;
+      message += `*Phone:* ${phone}\n`;
+      message += `*Pickup:* ${pickup}\n`;
+      message += `*Drop:* ${drop}\n`;
+      message += `*Date & Time:* ${formattedDate}\n`;
+      message += `*Vehicle:* ${vehicleType}\n`;
+
+      if (hasEstimate) {
+        message += `\n*--- Estimated Trip Details ---*\n`;
+        message += `*Distance:* ${estDistance} km\n`;
+        message += `*Approx. Time:* ${estTime}\n`;
+      }
+
+      message += `\nPlease confirm my booking. Thank you!`;
+
+      const whatsappNumber = '917770077344';
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
+
+      // Try popup, fallback to same-tab navigation
+      const newWindow = window.open(whatsappUrl, '_blank');
+      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        window.location.href = whatsappUrl;
+      }
+    });
+
+    /* =========================================================
+       6. SMOOTH SCROLL
+       ========================================================= */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    /* =========================================================
+       7. INITIALIZATION
+       ========================================================= */
+    (function initLanguage() {
+      let saved = 'en';
+      try { saved = localStorage.getItem('preferredLang') || 'en'; } catch (e) {}
+      langSelect.value = saved;
+      setLanguage(saved);
+    })();
+
+  </script>
+
+</body>
+</html>
